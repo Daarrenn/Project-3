@@ -1,7 +1,14 @@
-color red = #FF0000;
+color red = #FC2E17;
 color orange = #FF6600;
 color yellowyorange = #FAD558;
 color yellow = #FEFF00;
+color lGreen = #56FF03;
+color dGreen = #15892B;
+color lBlue = #51B2FA;
+color dBlue = #000EFC;
+color purple = #6C00FC;
+color pink = #FA8DB3;
+color brown = #835C13;
 color white = #FFFFFF;
 color black = #000000;
 color colour = #000000;
@@ -11,18 +18,27 @@ float selector = 2;
 void setup() {
   size(600, 600);
   strokeWeight(5);
-  background(yellowyorange);
-  rect(50, 50, 500, 400);
+  drawBackground();
 }
 
 void draw() {
   strokeWeight(5);
+  fill(white);
   rect(5, 475, 590, 120);
   selector = map(sliderX, 350, 550, 0, 10);
   stroke(black);
   
+  //slider
   line(350, 500, 550, 500);
   circle(sliderX, 500, 30);
+  //colours
+  drawButton(40, 510, red);  
+  drawButton(90, 510, orange);  
+  drawButton(140, 510, yellow);  
+  drawButton(190, 510, lGreen);
+  drawButton(240, 510, dGreen);
+  drawButton(290, 510, lBlue);
+  drawButton(40, 560, dBlue);
 
 }
 
@@ -48,4 +64,14 @@ void mouseDragged() {
   }
   fill(white);
   sliderLocation();
+}
+
+void drawBackground() {
+  background(yellowyorange);
+  rect(50, 50, 500, 400);
+}
+
+void drawButton(int x, int y, color colour) {
+  fill(colour);
+  circle(x, y, 40);
 }
