@@ -15,10 +15,15 @@ color colour = #000000;
 float sliderX = 425;
 float selector = 2;
 
+PImage eraser;
+PImage cat;
+
 void setup() {
   size(600, 600);
   strokeWeight(5);
   drawBackground();
+  eraser = loadImage("eraser.png");
+  cat = loadImage("cat.png");
 }
 
 void draw() {
@@ -35,17 +40,38 @@ void draw() {
   drawButton(40, 510, red);  
   drawButton(90, 510, orange);  
   drawButton(140, 510, yellow);  
-  drawButton(190, 510, lGreen);
+  drawButton(190, 510, lGreen);  
   drawButton(240, 510, dGreen);
   drawButton(290, 510, lBlue);
   drawButton(40, 560, dBlue);
-
+  drawButton(90, 560, purple);
+  drawButton(140, 560, pink);
+  drawButton(190, 560, brown);
+  drawButton(240, 560, black);
+  drawButton(290, 560, white);
+  image(eraser, 275, 545, 30, 30);
+  
+  rect(500, 530, 50, 50);
+  image(cat, 497, 527, 55, 55);
 }
 
 
 
 void mouseReleased() {
-sliderLocation();
+  sliderLocation();
+  button(40, 510, red);
+  button(90, 510, orange);
+  button(140, 510, yellow);
+  button(190, 510, lGreen);
+  button(240, 510, dGreen);
+  button(290, 510, lBlue);
+  button(40, 560, dBlue);
+  button(90, 560, purple);
+  button(140, 560, pink);
+  button(190, 560, brown);
+  button(240, 560, black);
+  button(290, 560, white);
+  
 }
   
 void sliderLocation() {
@@ -58,9 +84,10 @@ void sliderLocation() {
 
 void mouseDragged() {
   if(mouseX > 50 && mouseX < 550 && mouseY > 50 && mouseY < 450){
-    fill(colour);
+    stroke(colour);
     strokeWeight(selector);
     line(pmouseX, pmouseY, mouseX, mouseY);
+    stroke(black);
   }
   fill(white);
   sliderLocation();
@@ -74,4 +101,10 @@ void drawBackground() {
 void drawButton(int x, int y, color colour) {
   fill(colour);
   circle(x, y, 40);
+}
+
+void button(int x, int y, color colours) {
+  if(dist(x, y, mouseX, mouseY) < 20) {
+    colour = colours;
+  }
 }
