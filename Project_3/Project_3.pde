@@ -12,10 +12,13 @@ color brown = #835C13;
 color white = #FFFFFF;
 color black = #000000;
 color colour = #000000;
+color tactileColour = #FCEB4C;
 float sliderX = 425;
 float selector = 2;
+float stampSize = 50;
 
 boolean drawCat;
+boolean drawDog;
 
 PImage eraser;
 PImage cat;
@@ -36,6 +39,7 @@ void draw() {
   rect(5, 475, 590, 120);
   selector = map(sliderX, 350, 550, 0, 10);
   stroke(black);
+  stampSize = map(sliderX, 350, 550, 20, 70);
 
   //slider
   line(350, 500, 550, 500);
@@ -55,8 +59,16 @@ void draw() {
   drawButton(290, 560, white);
   image(eraser, 275, 545, 30, 30);
 
+  squareTactile(500, 550, 530, 580);
   rect(500, 530, 50, 50);
+  stroke(black);
   image(cat, 497, 527, 55, 55);
+  
+  squareTactile(430, 480, 530, 580);
+  rect(430, 530, 50, 50);
+  stroke(black);
+  image(dog, 429, 532, 50, 50);
+ 
 }
 
 
@@ -76,8 +88,15 @@ void mouseReleased() {
   button(240, 560, black);
   button(290, 560, white);
   
+  //cat button
   if(mouseX > 500 && mouseX < 550 && mouseY > 530 && mouseY < 580) {
     drawCat = true;
+    drawDog = false;
+  }
+  //dog button
+  if(mouseX > 430 && mouseX < 480 && mouseY > 530 && mouseY < 580) {
+    drawCat = false;
+    drawDog = true;
   }
   
 }
@@ -91,18 +110,23 @@ void sliderLocation() {
 
 
 void mouseDragged() {
+  
+  sliderLocation();
 
   if (mouseX > 50 && mouseX < 550 && mouseY > 50 && mouseY < 450) {
-    if (drawCat == false) {
+    if (drawCat == false && drawDog == false) {
       stroke(colour);
       strokeWeight(selector);
       line(pmouseX, pmouseY, mouseX, mouseY);
       stroke(black);
-    } else {
-      image(cat, mouseX-20, mouseY-20, 50, 50);
+    } 
+    if (drawCat == true){
+      image(cat, mouseX-20, mouseY-20, stampSize, stampSize);
+    }
+    if (drawDog == true){
+      image(dog, mouseX-20, mouseY-20, stampSize, stampSize);
     }
   fill(white);
-  sliderLocation();
   }
 }
 void drawBackground() {
@@ -119,5 +143,16 @@ void button(int x, int y, color colours) {
   if (dist(x, y, mouseX, mouseY) < 20) {
     colour = colours;
     drawCat = false;
+    drawDog = false;
   }
 }
+
+void squareTactile(int x, int x2, int y, int y2) {
+  if(mouseX > x && mouseX < x2 && mouseY > y && mouseY < y2) {
+    stroke(tactileColour);
+  } else {
+    stroke(black);
+  }
+}
+
+void circleTactile(int x, int y){
