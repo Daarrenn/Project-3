@@ -68,6 +68,30 @@ void draw() {
   rect(430, 530, 50, 50);
   stroke(black);
   image(dog, 429, 532, 50, 50);
+  
+  
+  if(drawCat == false && drawDog == false){
+    stroke(colour);
+    fill(colour);
+    circle(370, 550, selector);
+  }
+  if(colour == white){
+    stroke(black);
+    strokeWeight(1);
+    circle(370, 550, selector);
+    noFill();
+    strokeWeight(5);
+  }
+  noFill();
+  circle(370, 550, 70);
+  if (drawCat == true){
+    image(cat, 340, 520, 60, 60);
+  }
+  if (drawDog == true){
+    image(dog, 340, 520, 60, 60);
+  }
+  stroke(black);
+  
  
 }
 
@@ -135,6 +159,11 @@ void drawBackground() {
 }
 
 void drawButton(int x, int y, color colour) {
+  if (dist(x, y, mouseX, mouseY) < 20) {
+    stroke(tactileColour);
+  } else {
+    stroke(black);
+  }
   fill(colour);
   circle(x, y, 40);
 }
@@ -154,5 +183,3 @@ void squareTactile(int x, int x2, int y, int y2) {
     stroke(black);
   }
 }
-
-void circleTactile(int x, int y){
