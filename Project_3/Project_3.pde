@@ -13,6 +13,7 @@ color white = #FFFFFF;
 color black = #000000;
 color colour = #000000;
 color tactileColour = #FCEB4C;
+color loadAndSave = #FCBD0D;
 float sliderX = 425;
 float selector = 2;
 float stampSize = 50;
@@ -37,7 +38,7 @@ void draw() {
   strokeWeight(5);
   fill(white);
   rect(5, 475, 590, 120);
-  selector = map(sliderX, 350, 550, 0, 10);
+  selector = map(sliderX, 350, 550, 2, 10);
   stroke(black);
   stampSize = map(sliderX, 350, 550, 20, 70);
 
@@ -70,6 +71,7 @@ void draw() {
   image(dog, 429, 532, 50, 50);
   
   
+  //showing thing
   if(drawCat == false && drawDog == false){
     stroke(colour);
     fill(colour);
@@ -83,7 +85,7 @@ void draw() {
     strokeWeight(5);
   }
   noFill();
-  circle(370, 550, 70);
+  circle(370, 550, 65);
   if (drawCat == true){
     image(cat, 340, 520, 60, 60);
   }
@@ -91,6 +93,33 @@ void draw() {
     image(dog, 340, 520, 60, 60);
   }
   stroke(black);
+  
+  
+  //delete
+  fill(white);
+  squareTactile(50, 90, 7, 42);
+  rect(50, 7, 40, 35);
+  image(eraser, 55, 9, 30, 30);
+  stroke(black);
+  
+  //save
+  squareTactile(490, 550, 7, 42);
+  rect(490, 7, 60, 35);
+  fill(loadAndSave);
+  textSize(25);
+  text("save", 497, 32);
+  stroke(black);
+  
+  //load
+  fill(white);
+  squareTactile(420, 480, 7, 42);
+  rect(420, 7, 60, 35);
+  fill(loadAndSave);
+  textSize(25);
+  text("load", 428, 32);
+  fill(white);
+  stroke(black);
+  
   
  
 }
@@ -123,6 +152,17 @@ void mouseReleased() {
     drawDog = true;
   }
   
+  if(mouseX > 50 && mouseX < 90 && mouseY > 9 && mouseY < 39) {
+    drawBackground();
+  }
+  
+  if(mouseX > 490 && mouseX < 550 && mouseY > 7 && mouseY < 42) {
+    selectOutput("Choose a name for your image", "saveImage");
+  }
+  
+  if(mouseX > 420 && mouseX < 480 && mouseY > 7 && mouseY < 42) {
+    selectInput("Pick an image to load", "openImage");
+  }
 }
 
 void sliderLocation() {
@@ -183,3 +223,22 @@ void squareTactile(int x, int x2, int y, int y2) {
     stroke(black);
   }
 }
+
+void saveImage(File f) {
+  if (f != null) {
+    PImage canvas = get(50, 50, 500, 400);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+void openImage(File f) {
+  if (f != null) {
+    int n = 0;
+    while (n < 100) {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 0, 0);
+      n = n + 1;
+    }
+  }
+}
+      
