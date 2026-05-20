@@ -236,7 +236,7 @@ void openImage(File f) {
     int n = 0;
     while (n < 100) {
       PImage pic = loadImage(f.getPath());
-      image(pic, 0, 0);
+      image(pic, 30, 30, 450, 450);
       n = n + 1;
     }
   }
